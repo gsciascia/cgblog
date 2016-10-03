@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'last_name', 'email', 'password', 'is_active'
     ];
 
     /**
@@ -26,4 +26,42 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    /**
+     * Create the 'role' relationship between User and Role models. 1 - 1
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role(){
+        return $this->belongsTo('App\Role');
+    }
+
+
+
+
+    /**
+     * Check if the user has the role passed as parameter and it is active
+     *
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole($role){
+
+        // Change $role to Array. So we can have ['admin','author'])
+        $A_role = explode('|',$role);
+
+        if( is_array($A_role) ) {  echo 'si';
+            if ( in_array( $this->role->name, $A_role ) && $this->is_active == 1 ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+
 }

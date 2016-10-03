@@ -20,17 +20,17 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <img src="{{ asset('backend-assets/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                        <span class="hidden-xs">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="{{ asset('backend-assets/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                {{ Auth::user()->name }} - {{ Auth::user()->role->name }}
+
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -39,7 +39,12 @@
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="{{ url('/logout') }}"  onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
+
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
                             </div>
                         </li>
                     </ul>
