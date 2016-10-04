@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class CheckRole
 {
 
-    protected $redirectTo = '/suca';
+
 
     /**
      * Handle an incoming request.
@@ -23,11 +23,8 @@ class CheckRole
         if(Auth::check()) {
             if (Auth::user()->hasRole($role)) {
                 return $next($request);
-            }else{
-              //return redirect('/login2');
             }
         }
 
-       // return redirect('/login');
     }
 }

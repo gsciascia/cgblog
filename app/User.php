@@ -52,7 +52,7 @@ class User extends Authenticatable
         // Change $role to Array. So we can have ['admin','author'])
         $A_role = explode('|',$role);
 
-        if( is_array($A_role) ) {  echo 'si';
+        if( is_array($A_role) ) {
             if ( in_array( $this->role->name, $A_role ) && $this->is_active == 1 ) {
                 return true;
             }
