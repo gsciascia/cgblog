@@ -28,11 +28,15 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
         return view('backend.index');
     })->name('dashboard');;
 
+    // Categories Route
+    Route::group(['middleware'=>'role:admin' ], function(){
+       Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]);
+       Route::get('categories/{parent_id?}', 'Backend\BackendCategoryController@index')->name('categories.index');
+       Route::get('categories/delete/{category_id}', 'Backend\BackendCategoryController@delete')->name('categories.delete');
+    });
 
-    Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]); //->middleware('auth');
-    Route::get('categories/{parent_id?}', 'Backend\BackendCategoryController@index')->name('categories.index');
-    Route::get('categories/delete/{category_id}', 'Backend\BackendCategoryController@delete')->name('categories.delete');
-
+    // Posts Route
+    Route::resource('posts','Backend\BackendPostController',['except' => ['show']]); //->middleware('auth');
 
 
 

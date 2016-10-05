@@ -23,8 +23,13 @@ class CheckRole
         if(Auth::check()) {
             if (Auth::user()->hasRole($role)) {
                 return $next($request);
+            }else{
+                return redirect('/');  // Go to home if you don't have the role  required
             }
         }
+
+        // If user is not Authenticated go to login form
+        return redirect('/login');
 
     }
 }
