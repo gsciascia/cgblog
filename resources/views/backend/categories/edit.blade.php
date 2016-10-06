@@ -29,7 +29,7 @@
                         <h3 class="box-title">Edit category</h3>
                     </div>
 
-                    {!! Form::open(['method'=>'PATCH', 'action' => ['Backend\BackendCategoryController@update', $category->id], 'files'=>false]) !!}
+                    {!! Form::model($category,['method'=>'PATCH', 'action' => ['Backend\BackendCategoryController@update', $category->id], 'files'=>false]) !!}
                         <div class="box-body">
 
                             <div class="form-group  @if ($errors->has('name')) has-error @endif">
@@ -64,7 +64,7 @@
                         <div class="box-footer">
                             {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
                 <!-- /.box -->
             </div>

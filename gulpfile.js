@@ -43,6 +43,16 @@ gulp.task("updateFilesBackend", function() {
     gulp.src("vendor/bower_components/AdminLTE/plugins/slimScroll/**/*")
         .pipe(gulp.dest("resources/assets/backend/plugins/slimScroll/"));
 
+
+    gulp.src("vendor/bower_components/bootbox.js/bootbox.js")
+        .pipe(gulp.dest("resources/assets/backend/plugins/bootbox/"));
+
+
+    gulp.src("vendor/bower_components/AdminLTE/plugins/datepicker/**/*/")
+        .pipe(gulp.dest("resources/assets/backend/plugins/datepicker/"));
+
+    gulp.src("vendor/bower_components/AdminLTE/plugins/timepicker/**/*/")
+        .pipe(gulp.dest("resources/assets/backend/plugins/timepicker/"));
 });
 
 elixir(function(mix) {
@@ -50,15 +60,23 @@ elixir(function(mix) {
     mix.styles([
         '../backend/bootstrap/css/bootstrap.css',
         '../backend/thema/AdminLTE.css',
-        '../backend/thema/skins/skin-blue.css'
-
+        '../backend/thema/skins/skin-blue.css',
+        '../backend/thema/skins/skin-blue.css',
+        '../backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css', // wysihtml5 bootstrap CSS
+        '../backend/plugins/datepicker/datepicker3.css', //
+        '../backend/plugins/timepicker/bootstrap-timepicker.min.css', //
     ],'public/backend-assets/css/all.css')
 
 
         .scripts([
             'plugins/jQuery/jquery-2.2.3.min.js', // Jquery needs first
             'bootstrap/js/bootstrap.js',
-            'plugins/slimScroll/jquery.slimscroll.js', // Jquery needs first
-            'js/app.min.js'
+            'plugins/slimScroll/jquery.slimscroll.js',
+            'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js', // wysihtml5 bootstrap CSS
+            'plugins/bootbox/bootbox.js', // bootbox
+            'plugins/datepicker/bootstrap-datepicker.js',
+            'plugins/timepicker/bootstrap-timepicker.min.js',
+            'js/app.min.js',
+            'js/main.js'
         ],'public/backend-assets/js/all.js','./resources/assets/backend/')
 });

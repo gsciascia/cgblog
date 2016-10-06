@@ -6,7 +6,9 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <title>Admin</title>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -44,5 +46,6 @@
 <script src="{{asset('backend-assets/js/all.js')}}"></script>
 @yield('scripts')
 @yield('footer')
+@include('modal.layout')
 </body>
 

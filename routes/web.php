@@ -33,10 +33,15 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
        Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]);
        Route::get('categories/{parent_id?}', 'Backend\BackendCategoryController@index')->name('categories.index');
        Route::get('categories/delete/{category_id}', 'Backend\BackendCategoryController@delete')->name('categories.delete');
+
     });
 
     // Posts Route
-    Route::resource('posts','Backend\BackendPostController',['except' => ['show']]); //->middleware('auth');
+    Route::delete('posts/destroyTrashed', 'Backend\BackendPostController@destroyTrashed')->name('posts.destroyTrashed');
+    Route::resource('posts','Backend\BackendPostController',['except' => ['show']]);
+    Route::get('posts/trash', 'Backend\BackendPostController@trash')->name('posts.trash');
+    Route::get('posts/restore/{post}', 'Backend\BackendPostController@restore')->name('posts.restore');
+
 
 
 

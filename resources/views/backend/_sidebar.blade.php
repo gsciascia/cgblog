@@ -25,8 +25,10 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=""><i class="fa fa-circle-o"></i> Create new</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> View all</a></li>
+                    <li><a href="{{route('posts.create')}}"><i class="fa fa-circle-o"></i> New post</a></li>
+                    <li><a href="{{route('posts.index')}}"><i class="fa fa-circle-o"></i> View all</a></li>
+                    <li><a href="{{route('posts.trash')}}"><i class="fa fa-recycle"></i> Trash</a></li>
+
                 </ul>
             </li>
 

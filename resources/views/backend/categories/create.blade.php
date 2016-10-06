@@ -30,7 +30,7 @@
                         <h3 class="box-title">Add category</h3>
                     </div>
 
-                    {!! Form::open(['method'=>'POST', 'action' => 'Backend\BackendCategoryController@store','files'=>false]) !!}
+                    {!! Form::model(['method'=>'POST', 'action' => 'Backend\BackendCategoryController@store','files'=>false]) !!}
                         <div class="box-body">
 
                             <div class="form-group  @if ($errors->has('name')) has-error @endif">

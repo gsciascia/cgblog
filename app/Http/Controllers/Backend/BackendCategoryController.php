@@ -19,7 +19,7 @@ class BackendCategoryController extends Controller
     protected $categories;
 
     /**
-     * Create a relationship with Category Model
+     * Assign Category Model in Controller
      *
      * @param  Category  $categories
      * @return void

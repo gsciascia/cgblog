@@ -20,6 +20,16 @@ class Category extends Model
 
 
 
+    /**
+     * The many-to-many relationship between posts and categories.
+     *
+     * @return BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post', 'category_post');
+    }
+
 
 
 

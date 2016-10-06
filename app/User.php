@@ -39,6 +39,15 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * Create the 'posts' relationship between User and Post models. 1 - N
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
 
 
     /**

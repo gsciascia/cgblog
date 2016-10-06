@@ -59,6 +59,9 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('categories.edit',$category->id) }}" class="btn btn-primary" title="Edit category"><i class="fa fa-pencil"></i></a>
+
+
+
                                     <a href="{{ route('categories.delete',$category->id) }}" class="btn btn-danger" title="Delete items" ><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
