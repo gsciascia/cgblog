@@ -13,24 +13,26 @@
 
 @section('content')
     <div class="row"> <!-- Start central container  -->
+
         <div class="col-xs-12 col-md-8">
+
+        @forelse ($posts as $post)
+
+
+            @if ($loop->first)
             <section class="main-post">
                 <div class="main-post__image">
                     <img src='https://source.unsplash.com/category/buildings/750x350' class="img-responsive"/>
                 </div>
 
-                <h3 class="main-post__title">My main post</h3>
-                <span class="main-post__author">by G. Sciascia</span>
-                <span class="main-post__date"> Published at 14/06/1984</span>
+                <h3 class="main-post__title">{{ $post->title }}</h3>
+                <span class="main-post__author">by {{ $post->user->name }}</span>
+                <span class="main-post__date"> Published at {{ $post->publish_date }}</span>
                 <div class="main-post__abstract">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Ut eget elit suscipit, scelerisque ipsum id, posuere lectus. Integer consectetur, sapien consequat rutrum dapibus, nisi velit dapibus nisl, ut aliquet massa orci in turpis. Vestibulum a mi mollis, lobortis ligula quis, aliquet eros.
-                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                    {{ $post->abstract }}
                 </div>
             </section>
-
-
-
+            @else
 
             <section class="row-post col-xs-12">
                 <div class="row-post__image col-xs-12 col-md-6">
@@ -38,40 +40,39 @@
                 </div>
 
                 <div class="row-post__content col-xs-12 col-md-6">
-                    <h3 class="row-post__title">My main post</h3>
-                    <span class="row-post__author">G. Sciascia</span>
-                    <span class="row-post__date">14/06/1984</span>
+                    <h3 class="row-post__title">{{ $post->title }}</h3>
+                    <span class="row-post__author">by {{ $post->user->name }}</span>
+                    <span class="row-post__date">Published at {{ $post->publish_date }}</span>
                     <div class="row-post__abstract">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ut eget elit suscipit, scelerisque ipsum id, posuere lectus. </div>
+                        {{ $post->abstract }}
+                    </div>
                 </div>
             </section>
 
-            <section class="row-post col-xs-12">
-                <div class="row-post__image col-xs-12 col-md-6">
-                    <img src='https://source.unsplash.com/category/buildings/750x350' class="img-responsive"/>
-                </div>
+            @endif
+            @empty
+                <section class="row-post col-xs-12">
+                <p>Sorry, no post founds</p>
+                </section>
+            @endforelse
 
-                <div class="row-post__content col-xs-12 col-md-6">
-                    <h3>My main post</h3>
-                    <span class="row-post__author">G. Sciascia</span>
-                    <span class="row-post__date">14/06/1984</span>
-                    <div class="row-post__abstract">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ut eget elit suscipit, scelerisque ipsum id, posuere lectus. </div>
-                </div>
-            </section>
+
 
         </div>
+
+
+
+
+
 
         <aside class="sidebar-content col-md-4">
             <div class="sidebar-category">
                 <h4 class="sidebar-category__title">Categories</h4>
 
                 <ul class="sidebar-category__list">
-                    <li class="sidebar-category__list__item"><a href="#">Category 1</a></li>
-                    <li class="sidebar-category__list__item"><a href="#">Category 1</a></li>
-                    <li class="sidebar-category__list__item"><a href="#">Category 1</a></li>
+                    @foreach ($categories as $category)
+                    <li class="sidebar-category__list__item"><a href="{{ route('blog.showPostsInCategory', ['id' => $category->id]) }}">{{$category->name}}</a></li>
+                    @endforeach
 
                 </ul>
 

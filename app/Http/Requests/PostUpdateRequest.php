@@ -29,7 +29,7 @@ class PostUpdateRequest extends FormRequest
             'title' => 'required',
             'abstract' => 'required',
             'content' => 'string',
-            'publish_date' => 'sometimes|required',
+            'publish_date' => 'sometimes',
             'status' => 'required|in:publish,draft,delete',
 
         ];

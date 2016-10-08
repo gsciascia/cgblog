@@ -1,0 +1,1 @@
+{"version":3,"sources":["animate.css"],"names":[],"mappings":"AAAA,SACE,6BAA+B,CAAE","file":"animation/animate.css","sourcesContent":[".animate {\n  transition: all 1s ease-in-out; }\n"],"sourceRoot":"/source/"}

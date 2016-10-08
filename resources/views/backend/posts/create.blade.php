@@ -131,14 +131,27 @@
                                 @endif
                             </div>
 
+
+
+
                             <div class="form-group  @if ($errors->has('publish_date')) has-error @endif">
                                 {{ Form::label('publish_date','Publish date') }}
-                                {{ Form::date('publish_date', \Carbon\Carbon::now(),['class' => 'form-control'])}}
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    {{ Form::text('publish_date', \Carbon\Carbon::now()->format('d/m/Y') ,['class' => 'form-control datepicker'])}}
+                                </div>
                                 @if ($errors->has('publish_date'))
                                     <small class="help-block">{{ $errors->first('publish_date') }}</small>
                                 @endif
                             </div>
+
                         </div>
+
+
+
+
 
 
                         <div class="box-footer">
@@ -154,4 +167,4 @@
 
         </div>
     </section>
-    @stop;
+    @stop

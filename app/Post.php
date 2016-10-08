@@ -22,7 +22,6 @@ class Post extends Model
     protected $fillable = [
                              'title', 'abstract', 'content',
                              'status', 'publish_date',
-                             'title_tag', 'description_tag',
                              'deleted_by', 'deleted_at'
     ];
 
@@ -33,6 +32,16 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+
+    /**
+     * Relation with Seo table
+     */
+    public function seo()
+    {
+        return $this->morphMany('App\Seo', 'seoble');
+    }
+
 
 
     /**
@@ -80,6 +89,28 @@ class Post extends Model
 
 
 
+    /**
+     * Scope for retrieve only published element
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'publish')->where('publish_date', '<=', Carbon::now());
+    }
+
+
+
+    public function setPublishDateAttribute($date)
+    {
+        $this->attributes['publish_date'] = Carbon::createFromFormat('d/m/Y',$date);
+    }
+
+    public function getPublishDateAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
 
 
 }

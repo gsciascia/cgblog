@@ -80,3 +80,86 @@ elixir(function(mix) {
             'js/main.js'
         ],'public/backend-assets/js/all.js','./resources/assets/backend/')
 });
+
+
+
+/**
+ * Front end gulp Task
+ *
+ */
+
+
+var browserSync = require('browser-sync').create();
+// Requires the gulp-sass and autoprefix  plugin
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
+var cssnano = require('gulp-cssnano');
+var sourcemaps = require('gulp-sourcemaps');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+
+
+// the defaults task that are call
+gulp.task('frontendDev', ['watch','browserSync','styles','scripts'], function() {});
+
+
+
+
+// Gulp watch these files and please do something :)
+gulp.task('watch', ['browserSync'],function(){
+    // Watch changes in sass folder
+    gulp.watch('resources/assets/blog/scss/**/*.scss', ['styles']);
+    // Reloads the browser whenever HTML or JS files change
+    gulp.watch('resources/views/layouts/**/*.php', browserSync.reload);
+
+
+})
+
+
+gulp.task('styles', function () {
+    return gulp.src('resources/assets/blog/scss/**/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 3 versions'],
+            cascade: false
+        }))
+        .pipe(cssnano())
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('public/blog-assets/css/'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+});
+
+
+gulp.task('scripts', function() {
+    return gulp.src(['resources/assets/blog/js/jquery.js', 'resources/assets/blog/js/main.js'])
+        .pipe(concat('all.js'))
+      //  .uglify()
+        .pipe(gulp.dest('public/blog-assets/js/'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+});
+
+
+// Live reload for our app folder
+gulp.task('browserSync', function() {
+    browserSync.init({
+        proxy: "cgblog.dev"
+    });
+});
+
+
+
+
+// Gulp watch these files and please do something :)
+gulp.task('copyFileFrontend',function(){
+
+    // Load bootstrap file
+    gulp.src("vendor/bower_components/jquery/dist/jquery.js")
+        .pipe(gulp.dest("resources/assets/blog/js/"));
+
+
+})

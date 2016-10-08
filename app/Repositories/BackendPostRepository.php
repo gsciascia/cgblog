@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Category;
 use App\Post;
+use App\Seo;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -15,9 +16,16 @@ class BackendPostRepository
 
     protected $post;
 
-    public function __construct(Post $post, Category $category)
+    /**
+     * BackendPostRepository constructor.
+     * @param Post $post
+     * @param Category $category
+     * @param Seo $seo
+     */
+    public function __construct(Post $post, Category $category, Seo $seo)
     {
         $this->post = $post;
+        $this->seo = $seo;
         $this->category = $category;
     }
 
@@ -56,6 +64,10 @@ class BackendPostRepository
                 $this->removeDeleteData($post_obj);
             }
 
+            // Update seo object
+            $post_obj->seo->find($id)->update($input_data);
+
+
         }
 
         return true;
@@ -75,11 +87,17 @@ class BackendPostRepository
 
         $post_obj = $user->posts()->create($input_data);
 
+
         if ($post_obj) {
             $categories_id = array_values($input_data['categories']);
             if (isset($input_data['categories'])) {
                 $post_obj->categories()->sync($categories_id);
             }
+
+            // Create seo object
+            $seo_data = $this->seo->create($input_data);
+            $post_obj->seo()->save($seo_data);
+
         }
 
         return true;
@@ -119,12 +137,16 @@ class BackendPostRepository
                 $array_categories [] = $category['id'];
             }
 
+            // retrieve seo data
+            $seo = $post_obj->seo->first();
+
 
             return [
                 'post' => $post_obj,
                 'all_categories' => $categories,
                 'category_post' => $array_categories,
-                'status' => $status
+                'status' => $status,
+                'seo' => $seo
             ];
 
 

@@ -31,6 +31,13 @@ class Category extends Model
     }
 
 
+    /**
+     * Relation with Seo table
+     */
+    public function seo()
+    {
+        return $this->morphMany('App\Seo', 'seoble');
+    }
 
 
     /**

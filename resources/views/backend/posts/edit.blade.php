@@ -32,7 +32,7 @@
                     <div class="col-md-8">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Create a new post</h3>
+                                <h3 class="box-title">Edit a new post</h3>
                             </div>
 
 
@@ -97,14 +97,14 @@
 
                                             <div class="form-group  @if ($errors->has('title_tag')) has-error @endif">
                                                 {{ Form::label('title_tag','Title Tag ') }}
-                                                {{ Form::text('title_tag',null,['class'=>'form-control','placeholder'=>'Enter the title tag']) }}
+                                                {{ Form::text('title_tag',$seo->title_tag ,['class'=>'form-control','placeholder'=>'Enter the title tag']) }}
                                                 @if ($errors->has('title_tag'))
                                                     <small class="help-block">{{ $errors->first('title_tag') }}</small> @endif
                                             </div>
 
                                             <div class="form-group  @if ($errors->has('description_tag')) has-error @endif">
                                                 {{ Form::label('description_tag','Description tag') }}
-                                                {{ Form::textarea('description_tag',null,['class'=>'form-control','placeholder'=>'Enter the description tag', 'rows'=>5]) }}
+                                                {{ Form::textarea('description_tag',$seo->description_tag ,['class'=>'form-control','placeholder'=>'Enter the description tag', 'rows'=>5]) }}
                                                 @if ($errors->has('description_tag'))
                                                     <small class="help-block">{{ $errors->first('description_tag') }}</small> @endif
                                             </div>
@@ -182,4 +182,4 @@
 
             </div>
         </section>
-    @stop;
+    @stop

@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
 
 
 // Route for Backend panel
@@ -26,7 +20,7 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
 
     Route::get('/', function () {
         return view('backend.index');
-    })->name('dashboard');;
+    })->name('dashboard');
 
     // Categories Route
     Route::group(['middleware'=>'role:admin' ], function(){
@@ -47,3 +41,28 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
 
 
 });
+
+
+Auth::routes();
+
+
+
+// Post
+
+Route::get('/', ['uses' => 'Blog\BlogController@index', 'as' => 'blog.index']);
+
+/*
+Route::get('/{slug}', ['uses' => 'Blog\BlogController@showPost ', 'as' => 'blog.showPost']);
+*/
+
+
+// Category
+Route::get('/category/{name}', ['uses' => 'Blog\BlogController@showPostsInCategory', 'as' => 'blog.showPostsInCategory']);
+/*
+Route::get('/category', ['uses' => 'CategoryController@index', 'as' => 'category.index']);
+
+
+
+Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]);
+
+*/

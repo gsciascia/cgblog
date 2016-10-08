@@ -48,7 +48,7 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->status }}</td>
-                                <td>{{ $post->publish_date->format('m/d/Y H:i') }}</td>
+                                <td>{{ $post->publish_date }}</td>
                                 <td>
                                     <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-primary" title="Edit"><i class="fa fa-pencil"></i></a>
                                     <a  class="btn btn-danger confirm-delete"
@@ -69,4 +69,4 @@
             </div>
         </div>
     </section>
-    @stop;
+    @stop
