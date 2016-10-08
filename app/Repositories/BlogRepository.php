@@ -58,13 +58,35 @@ class BlogRepository
      * @param int $id -  category Id
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
-    public function showPostsInCategory($id)
+    public function listPostsInCategory($id)
     {
-        $categories = $this->category->find($id)->all();
 
-        return $categories;
+        $post = $this->category->find($id)->posts->all();
+
+
+        return $post;
     }
 
+
+
+    /**
+     * Get Post Data .
+     *pu
+     * @param int $id -  post Id
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function getPostData($slug)
+    {
+        $post = $this->post->whereSlug($slug)->first();
+
+
+        if($post){
+            return $post;
+        }
+
+       return abort(404);
+
+    }
 
 
 }

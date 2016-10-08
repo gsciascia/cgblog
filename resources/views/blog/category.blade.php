@@ -6,35 +6,29 @@
     <div class="row"> <!-- Start central container  -->
         <div class="col-xs-12 col-md-8">
 
-            <section class="row-post col-xs-12">
-                <div class="row-post__image col-xs-12 col-md-6">
-                    <img src='https://source.unsplash.com/category/buildings/750x350' class="img-responsive"/>
-                </div>
+            @forelse ($posts as $post)
+                <section class="row-post col-xs-12">
+                    <div class="row-post__image col-xs-12 col-md-6">
+                        <img src='{{ asset($post->image_path.$post->photo_filename) }}' class="img-responsive"/>
+                    </div>
 
-                <div class="row-post__content col-xs-12 col-md-6">
-                    <h3 class="row-post__title">My main post</h3>
-                    <span class="row-post__author">G. Sciascia</span>
-                    <span class="row-post__date">14/06/1984</span>
-                    <div class="row-post__abstract">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ut eget elit suscipit, scelerisque ipsum id, posuere lectus. </div>
-                </div>
-            </section>
+                    <div class="row-post__content col-xs-12 col-md-6">
+                        <h3 class="row-post__title">
+                            <a href="{{ $post->slug }}">{{ $post->title }}</a>
+                        </h3>
+                        <span class="row-post__author">by {{ $post->user->name }}</span>
+                        <span class="row-post__date">Published at {{ $post->publish_date }}</span>
+                        <div class="row-post__abstract">
+                            {{ $post->abstract }}
+                        </div>
+                    </div>
+                </section>
+            @empty
+                <section class="row-post col-xs-12">
+                    <p>Sorry, no post founds</p>
+                </section>
+            @endforelse
 
-            <section class="row-post col-xs-12">
-                <div class="row-post__image col-xs-12 col-md-6">
-                    <img src='https://source.unsplash.com/category/buildings/750x350' class="img-responsive"/>
-                </div>
-
-                <div class="row-post__content col-xs-12 col-md-6">
-                    <h3>My main post</h3>
-                    <span class="row-post__author">G. Sciascia</span>
-                    <span class="row-post__date">14/06/1984</span>
-                    <div class="row-post__abstract">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ut eget elit suscipit, scelerisque ipsum id, posuere lectus. </div>
-                </div>
-            </section>
 
         </div>
 

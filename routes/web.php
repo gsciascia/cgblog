@@ -50,16 +50,14 @@ Auth::routes();
 // Post
 
 Route::get('/', ['uses' => 'Blog\BlogController@index', 'as' => 'blog.index']);
-Route::get('/{slug}', ['uses' => 'Blog\BlogController@showPost ', 'as' => 'blog.showPost']);
+Route::get('/{slug}','Blog\BlogController@showPost')->name('blog.showPost');
 
 
 // Category
-Route::get('/category/{name}', ['uses' => 'Blog\BlogController@showPostsInCategory', 'as' => 'blog.showPostsInCategory']);
+Route::get('/category/{name}','Blog\BlogController@showPostsInCategory')->name('blog.showPostsInCategory');
+
+
 /*
 Route::get('/category', ['uses' => 'CategoryController@index', 'as' => 'category.index']);
-
-
-
 Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]);
-
 */

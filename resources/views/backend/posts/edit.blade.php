@@ -131,6 +131,14 @@
                                     <div class="tab-pane" id="seo_tab">
                                         <div class="box-body">
 
+
+                                            <div class="form-group  @if ($errors->has('slug')) has-error @endif">
+                                                {{ Form::label('slug','Slug ') }}
+                                                {{ Form::text('slug', null,['class'=>'form-control','placeholder'=>'Enter the title tag']) }}
+                                                @if ($errors->has('slug'))
+                                                    <small class="help-block">{{ $errors->first('slug') }}</small> @endif
+                                            </div>
+
                                             <div class="form-group  @if ($errors->has('title_tag')) has-error @endif">
                                                 {{ Form::label('title_tag','Title Tag ') }}
                                                 {{ Form::text('title_tag',$seo->title_tag ,['class'=>'form-control','placeholder'=>'Enter the title tag']) }}

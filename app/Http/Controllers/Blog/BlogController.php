@@ -56,7 +56,6 @@ class BlogController extends Controller
      */
     public function showPostsInCategory($id)
     {
-
         $posts = $this->blogRepository->listPostsInCategory($id);
         return view('blog.category', compact('posts'));
     }
@@ -67,11 +66,12 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showPost($id)
+    public function showPost($slug)
     {
 
-        $posts = $this->blogRepository->showPost($id);
-        return view('blog.category', compact('posts'));
+        $post = $this->blogRepository->getPostData($slug);
+
+        return view('blog.post', compact('post'));
     }
 
 

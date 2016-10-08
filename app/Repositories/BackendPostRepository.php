@@ -55,6 +55,7 @@ class BackendPostRepository
         if (Auth::user()->can('update', $post_obj)) {
 
             $old_status = $post_obj->status;
+            $old_slug = $post_obj->slug;
 
             $input_data = $request->all();
 
@@ -62,10 +63,15 @@ class BackendPostRepository
             //Check if the user want to remove image
 
             if (isset($input_data['remove_image'])) {
-
                 unlink(public_path().$post_obj->image_path.$post_obj->photo_filename);
              //   $input_data['photo_filename'] = null;
                 // delete file
+            }
+
+
+            // If slug is empty or is different from the previous
+            if($old_slug!=$input_data['slug']){
+                $post_obj->slug = null;
             }
 
 

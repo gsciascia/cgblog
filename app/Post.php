@@ -4,11 +4,13 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 
 class Post extends Model
 {
 
+    use Sluggable;
 
 
     /**
@@ -23,7 +25,7 @@ class Post extends Model
                              'title', 'abstract', 'content',
                              'status', 'publish_date',
                              'deleted_by', 'deleted_at',
-                             'photo_filename'
+                             'photo_filename','slug'
     ];
 
 
@@ -31,6 +33,19 @@ class Post extends Model
 
 
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
 
 
@@ -51,8 +66,6 @@ class Post extends Model
         return $this->morphMany('App\Seo', 'seoble');
 
     }
-
-
 
 
     /**
