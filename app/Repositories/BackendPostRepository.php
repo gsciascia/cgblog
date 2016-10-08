@@ -8,8 +8,10 @@ use App\Seo;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
+
 
 class BackendPostRepository
 {
@@ -43,34 +45,68 @@ class BackendPostRepository
      * @param $id The post id update
      * @return bool
      */
-    public function update($input_data, $id)
+    public function update($request, $id)
     {
         $post_obj = $this->post->find($id);
 
-        $old_status = $post_obj->status;
 
 
+        // Check if the user is Authorized to update (rules in : \App\Policies\Backend\BackendPostPolicy )
+        if (Auth::user()->can('update', $post_obj)) {
 
-        if ($post_obj->update($input_data)) {
+            $old_status = $post_obj->status;
+
+            $input_data = $request->all();
 
 
-            if (isset($input_data['categories'])) {
-                $categories_id = array_values($input_data['categories']);
-                $post_obj->categories()->sync($categories_id);
+            //Check if the user want to remove image
+
+            if (isset($input_data['remove_image'])) {
+
+                unlink(public_path().$post_obj->image_path.$post_obj->photo_filename);
+             //   $input_data['photo_filename'] = null;
+                // delete file
             }
 
 
-            if($old_status!=$input_data && $old_status=='deleted'){
-                $this->removeDeleteData($post_obj);
+
+            // Save image
+            // Check if the image input has a value
+            if ($request->hasFile('photo_filename')) {
+                $file = $request->file('photo_filename');
+
+                // Set file name
+                $nameFile = time() . '_' . $file->getClientOriginalName();
+                //Move to public/images/ directory
+                $file->move('images', $nameFile);
+                $input_data['photo_filename'] = $nameFile;
             }
 
-            // Update seo object
-            $post_obj->seo->find($id)->update($input_data);
 
 
+
+            if ($post_obj->update($input_data)) {
+                if (isset($input_data['categories'])) {
+                    $categories_id = array_values($input_data['categories']);
+                    $post_obj->categories()->sync($categories_id);
+                }
+
+                // If the old status was delete and now not anymore, I delete from the record the info about user and date of deletion
+                if ($old_status != $input_data && $old_status == 'deleted') {
+                    $this->removeDeleteData($post_obj);
+                }
+
+                // Update seo object
+                $post_obj->seo->find($id)->update($input_data);
+
+
+            }
+
+            return true;
+
+        }else {
+            App::abort(403, 'Access denied');
         }
-
-        return true;
     }
 
 
@@ -81,9 +117,25 @@ class BackendPostRepository
      * @param $id The post id update
      * @return bool
      */
-    public function save($input_data)
+    public function save($request)
     {
         $user = Auth::user();
+
+
+        $input_data = $request->all();
+
+        // Save image
+        // Check if the image input has a value
+        if ($request->hasFile('photo_filename')) {
+            $file = $request->file('photo_filename');
+
+            // Set file name
+            $nameFile = time() . '_' . $file->getClientOriginalName();
+            //Move to public/images/ directory
+            $file->move('images', $nameFile);
+            $input_data['photo_filename'] = $nameFile;
+        }
+
 
         $post_obj = $user->posts()->create($input_data);
 
@@ -93,6 +145,9 @@ class BackendPostRepository
             if (isset($input_data['categories'])) {
                 $post_obj->categories()->sync($categories_id);
             }
+
+
+
 
             // Create seo object
             $seo_data = $this->seo->create($input_data);
@@ -115,6 +170,9 @@ class BackendPostRepository
 
         $post_obj = $this->find($id);
 
+        // Check if the user is Authorized to update (rules in : \App\Policies\Backend\BackendPostPolicy )
+        if (Auth::user()->can('update', $post_obj)) {
+
             $categories = $this->category->all();
 
             $categories_tree = $this->category->listTreeCategories();
@@ -125,10 +183,10 @@ class BackendPostRepository
             $status = array();
             // If post is deleted, we pass this information in $status variable for use it in view
             if ($post_obj->status == 'deleted') {
-                 $status = ['deleted' => 'Deleted'];
+                $status = ['deleted' => 'Deleted'];
             }
 
-             $status = array_merge($status, ['draft' => 'Draft', 'publish' => 'Published']);
+            $status = array_merge($status, ['draft' => 'Draft', 'publish' => 'Published']);
 
 
             // Get Ids of the categories set for the post
@@ -149,7 +207,9 @@ class BackendPostRepository
                 'seo' => $seo
             ];
 
-
+        }else{
+            App::abort(403, 'Access denied');
+        }
     }
 
 

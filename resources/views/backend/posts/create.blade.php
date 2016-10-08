@@ -25,7 +25,7 @@
             @include('includes.message')
 
 
-                {{ Form::open(['method'=>'POST', 'action' => 'Backend\BackendPostController@store','files'=>false]) }}
+                {{ Form::open(['method'=>'POST', 'action' => 'Backend\BackendPostController@store','files'=>true]) }}
                 <div class="row">
                 <div class="col-md-8">
                     <div class="box box-primary">
@@ -37,8 +37,8 @@
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#text_tab" data-toggle="tab" aria-expanded="true">Post</a></li>
-                                <li class=""><a href="#category_tab" data-toggle="tab" aria-expanded="false">Categories</a>
-                                </li>
+                                <li class=""><a href="#category_tab" data-toggle="tab" aria-expanded="false">Categories</a></li>
+                                <li class=""><a href="#photo_tab" data-toggle="tab" aria-expanded="false">Image</a></li>
                                 <li class=""><a href="#seo_tab" data-toggle="tab" aria-expanded="false">Seo</a></li>
 
                             </ul>
@@ -87,6 +87,23 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                {{-- Photo Tabs  --}}
+                                <div class="tab-pane" id="photo_tab">
+                                    <div class="box-body">
+                                        <div class="form-group  @if ($errors->has('photo_filename')) has-error @endif">
+                                            {{ Form::label('photo_filename','Image') }}
+                                            {{ Form::file('photo_filename',['class'=>'form-control']) }}
+                                            <p class="help-block">The image must have the following dimensions: Min-Width 750px - Min-Height 350px  </p>
+                                            @if ($errors->has('photo_filename'))
+                                                <small class="help-block">{{ $errors->first('photo_filename') }}</small> @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Photo Tabs End --}}
+
+
 
                                 <div class="tab-pane" id="seo_tab">
                                     <div class="box-body">

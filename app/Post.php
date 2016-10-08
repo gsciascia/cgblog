@@ -22,8 +22,17 @@ class Post extends Model
     protected $fillable = [
                              'title', 'abstract', 'content',
                              'status', 'publish_date',
-                             'deleted_by', 'deleted_at'
+                             'deleted_by', 'deleted_at',
+                             'photo_filename'
     ];
+
+
+    public $image_path='/images/'; // Where we store images (Relative to Public folder)
+
+
+
+
+
 
     /**
      * Get the user that wrote the post.
@@ -111,6 +120,10 @@ class Post extends Model
     {
         return Carbon::parse($date)->format('d/m/Y');
     }
+
+
+
+
 
 
 }

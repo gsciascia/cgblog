@@ -83,9 +83,7 @@ class BackendPostController extends Controller
     public function store(PostCreateRequest $request)
     {
 
-        $input_data=$request->all();
-
-        $this->postRepository->save($input_data);
+        $this->postRepository->save($request);
 
         return redirect('/backend/posts');
 
@@ -112,12 +110,14 @@ class BackendPostController extends Controller
             'all_categories' // All the categories
             'category_post' // Id of all the categories set for the post
             'status' => // All status available for the post
+             'seo' => // Seo data for the post
         ];
          */
-    //    $this->authorize('update', $data['post']);
 
         return view( 'backend.posts.edit', $data );
     }
+
+
 
     /**
      * Update the specified resource and check validation rule in PostUpdateRequest.php
@@ -130,20 +130,13 @@ class BackendPostController extends Controller
     {
         $post = $this->postRepository->find($id);
 
-        // Check if the user is Authorized to update (rules in : \App\Policies\Backend\BackendPostPolicy )
-        $this->authorize('update', $post);
-
-        $input_data = $request->all();
-
-
-        if ($this->postRepository->update($input_data, $id)) {
+        if ($this->postRepository->update($request, $id)) {
             \Session::flash('flash_message_success', 'Success!');
         }else{
             \Session::flash('flash_message_error', 'Error!');
         }
 
         return redirect()->route('posts.edit', $id);
-
     }
 
     /**

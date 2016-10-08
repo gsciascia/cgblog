@@ -27,7 +27,7 @@
                 @include('includes.message')
 
 
-                {{ Form::model( $post, ['method'=>'PATCH', 'action' => ['Backend\BackendPostController@update', $post->id],'files'=>false] ) }}
+                {{ Form::model( $post, ['method'=>'PATCH', 'action' => ['Backend\BackendPostController@update', $post->id],'files'=>true] ) }}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="box box-primary">
@@ -40,6 +40,7 @@
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#text_tab" data-toggle="tab" aria-expanded="true">Post</a></li>
                                     <li class=""><a href="#category_tab" data-toggle="tab" aria-expanded="false">Categories</a></li>
+                                    <li class=""><a href="#photo_tab" data-toggle="tab" aria-expanded="false">Image</a></li>
                                     <li class=""><a href="#seo_tab" data-toggle="tab" aria-expanded="false">Seo</a></li>
 
                                 </ul>
@@ -91,6 +92,41 @@
                                         </div>
                                     </div>
 
+
+                                    {{-- Photo Tabs  --}}
+                                    <div class="tab-pane" id="photo_tab">
+                                        <div class="box-body">
+
+                                            <div class="form-group  @if ($errors->has('photo_filename')) has-error @endif">
+                                                {{ Form::label('photo_filename','Image') }}
+                                                {{ Form::file('photo_filename',['class'=>'form-control']) }}
+                                                <p class="help-block">The image must have the following dimensions: Min-Width 750px - Min-Height 350px  </p>
+                                                @if ($errors->has('photo_filename'))
+                                                    <small class="help-block">{{ $errors->first('photo_filename') }}</small> @endif
+                                            </div>
+
+
+                                            @if( !empty($post->photo_filename) )
+                                            <div class="box-body">
+                                                <img class="img-responsive pad" src="{{ $post->image_path.$post->photo_filename }}" alt="Photo">
+                                            </div>
+
+                                                <div class="form-group  @if ($errors->has('remove_image')) has-error @endif">
+                                                    <small class="help-block text-red">Do you wanto remove the image?</small>
+                                                    {{ Form::checkbox('remove_image', 0) }}
+                                                    {{ Form::label('remove_image','I want to remove the image') }}
+                                                   @if ($errors->has('remove_image'))
+                                                        <small class="help-block">{{ $errors->first('remove_image') }}</small>
+                                                    @endif
+                                                </div>
+
+                                            @endif
+
+
+
+                                        </div>
+                                    </div>
+                                    {{-- Photo Tabs End --}}
 
                                     <div class="tab-pane" id="seo_tab">
                                         <div class="box-body">
@@ -150,22 +186,6 @@
                             </div>
 
 
-
-
-{{--
-                                    <div class="form-group  @if ($errors->has('publish_time')) has-error @endif">
-                                        {{ Form::label('publish_time','Publish date') }}
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </div>
-                                            {{ Form::text('publish_time', null ,['class' => 'form-control timepicker'])}}
-                                        </div>
-                                        @if ($errors->has('publish_time'))
-                                            <small class="help-block">{{ $errors->first('publish_time') }}</small>
-                                        @endif
-                                    </div>
---}}
                             </div>
 
 
