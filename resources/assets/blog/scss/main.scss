@@ -1,0 +1,22 @@
+/* https://sass-guidelin.es/#architecture
+abstracts/
+vendors/
+base/
+layout/
+components/
+pages/
+themes/
+
+animation/
+*/
+
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+
+@import 'vendors/bootstrap';
+
+@import 'animation/animation';
+
+@import 'theme/base';
+
+

@@ -1,0 +1,34 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway:400,700';
+
+
+$grid_width: 960px;
+$grid_columns: 12;
+
+
+// breakpoints
+
+$phone-width: 767px;
+$tablet-width: 998px;
+$desktop-width: 1200px;
+$wide-desktop-width: 1680px;
+
+// Colors
+$color__primary--orange: #F7A600 !default;
+$color__primary--fucsia: #2E2149 !default;
+$color__primary--white: #fff !default;
+
+
+$color__text--title: #3A2A59  !default;
+$color__text--content: #676767  !default;
+$color__text--link: #5A6AAD  !default;
+$color__title--white: $color__primary--white  !default;
+
+
+$base__font-size: 16;
+$base__line: 20 !default;
+
+$grid-spacing: 0;
+
+
+
+$text-font: 'Raleway', sans-serif;

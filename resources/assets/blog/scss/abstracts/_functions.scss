@@ -1,0 +1,70 @@
+// Function for converting a px based font-size to rem.
+@function calculateRem($size) {
+  $remSize: $size / $base__font-size;
+  //Default font size on html element is 100%, equivalent to 16px;
+  @return ($size / $base__font-size)rem;
+}
+
+// Mixin that will include the fall back px declaration as well as the calculated rem value.
+@mixin fontSize($size) {
+
+
+  font-size: #{$size}px;
+  font-size: calculateRem($size);
+
+  //@debug "size #{$size} pixel - New Value #{$NewSize}";
+
+
+
+
+  @include phone {
+    $NewSize : ($size * 1.25);
+    font-size: #{$NewSize}px;
+    font-size: calculateRem($NewSize);
+  }
+
+  @include tablet {
+    $NewSize : ($size * 1.35);
+    font-size: #{$NewSize}px;
+    font-size: calculateRem($NewSize);
+  }
+
+  @include desktop {
+    $NewSize : ($size * 1.10);
+    font-size: #{$NewSize}px;
+    font-size: calculateRem($NewSize);
+  }
+
+  @include wide-desktop {
+    $NewSize : ($size * 1.15);
+    font-size: #{$NewSize}px;
+    font-size: calculateRem($NewSize);
+  }
+
+}
+
+
+@mixin phone {
+  @media  (max-width: #{$phone-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$phone-width}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$wide-desktop-width - 1px}) {
+    @content;
+  }
+}
+
+
+@mixin wide-desktop {
+  @media (min-width: #{$wide-desktop-width}) {
+    @content;
+  }
+}
