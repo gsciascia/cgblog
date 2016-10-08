@@ -38,20 +38,8 @@
 
         </div>
 
-        <aside class="sidebar-content col-md-4">
-            <div class="sidebar-category">
-                <h4 class="sidebar-category__title">Categories</h4>
 
-                <ul class="sidebar-category__list">
-                    <li class="sidebar-category__list__item"><a href="#">Category 1</a></li>
-                    <li class="sidebar-category__list__item"><a href="#">Category 1</a></li>
-                    <li class="sidebar-category__list__item"><a href="#">Category 1</a></li>
-
-                </ul>
-
-            </div>
-
-        </aside>
+        @include('blog.sidebar-categories')
 
     </div> <!-- End central container  -->
 @endsection
