@@ -58,7 +58,7 @@ class BlogRepository
      * @param int $id -  category Id
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
-    public function listPostsInCategory($id)
+    public function showPostsInCategory($id)
     {
         $categories = $this->category->find($id)->all();
 

@@ -2,7 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Category;
+
+use App\Repositories\BlogRepository;
 use Illuminate\View\View;
 
 class SidebarCategoryComposer
@@ -12,11 +13,12 @@ class SidebarCategoryComposer
     /**
      * Create a Sidebar composer.
      *
-     * @return void
+     * @param Category $category
      */
-    public function __construct(Category $category)
+    public function __construct(BlogRepository $blog)
     {
-        $this->categoryList = $category->linearizeCategoryArray();
+        $this->categoryList = $blog->listCategories();
+
     }
 
     /**
@@ -27,7 +29,8 @@ class SidebarCategoryComposer
      */
     public function compose(View $view)
     {
-        $view->with('categories', end($this->movieList));
+
+        $view->with('categories', $this->categoryList);
     }
 }
 

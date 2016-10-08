@@ -22,10 +22,17 @@
             @if ($loop->first)
             <section class="main-post">
                 <div class="main-post__image">
-                    <img src='https://source.unsplash.com/category/buildings/750x350' class="img-responsive"/>
+                    <img src='{{ asset($post->image_path.$post->photo_filename) }}' class="img-responsive"/>
                 </div>
 
-                <h3 class="main-post__title">{{ $post->title }}</h3>
+
+                <h3 class="main-post__title">
+
+                    <a href="{{ $post->seo()->first()->slug}}">
+                    {{ $post->title }}
+                    </a>
+
+                </h3>
                 <span class="main-post__author">by {{ $post->user->name }}</span>
                 <span class="main-post__date"> Published at {{ $post->publish_date }}</span>
                 <div class="main-post__abstract">

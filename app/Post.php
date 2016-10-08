@@ -49,7 +49,9 @@ class Post extends Model
     public function seo()
     {
         return $this->morphMany('App\Seo', 'seoble');
+
     }
+
 
 
 

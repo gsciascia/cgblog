@@ -50,10 +50,7 @@ Auth::routes();
 // Post
 
 Route::get('/', ['uses' => 'Blog\BlogController@index', 'as' => 'blog.index']);
-
-/*
 Route::get('/{slug}', ['uses' => 'Blog\BlogController@showPost ', 'as' => 'blog.showPost']);
-*/
 
 
 // Category

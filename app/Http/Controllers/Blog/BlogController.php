@@ -45,8 +45,6 @@ class BlogController extends Controller
         // Check the role of the user
 
         $posts = $this->blogRepository->listPosts();
-        $categories = $this->categories;
-
         return view('blog.index', compact('posts','categories'));
     }
 
@@ -58,12 +56,22 @@ class BlogController extends Controller
      */
     public function showPostsInCategory($id)
     {
-        // Check the role of the user
 
         $posts = $this->blogRepository->listPostsInCategory($id);
-        $categories = $this->categories;
+        return view('blog.category', compact('posts'));
+    }
 
-        return view('blog.category', compact('posts','categories'));
+
+    /**
+     * Display Post
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPost($id)
+    {
+
+        $posts = $this->blogRepository->showPost($id);
+        return view('blog.category', compact('posts'));
     }
 
 
