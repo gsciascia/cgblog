@@ -4,6 +4,7 @@
         <ul class="sidebar-menu">
 
 
+            @can('create', \App\Category::Class)
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-text-o"></i> <span>Categories</span>
@@ -16,6 +17,8 @@
                     <li><a href="{{route('categories.index')}}"><i class="fa fa-circle-o"></i> View all</a></li>
                 </ul>
             </li>
+           @endcan
+
 
             <li class="treeview">
                 <a href="#">

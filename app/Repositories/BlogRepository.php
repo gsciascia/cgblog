@@ -76,7 +76,7 @@ class BlogRepository
     public function listPostsInCategory($id)
     {
 
-        $post = $this->category->find($id)->posts->all();
+        $post = $this->category->find($id)->posts->where('status','publish')->all();
 
 
         return $post;

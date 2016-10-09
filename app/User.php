@@ -53,6 +53,7 @@ class User extends Authenticatable
     /**
      * Check if the user has the role passed as parameter and it is active
      *
+     *
      * @param string $role
      * @return bool
      */
