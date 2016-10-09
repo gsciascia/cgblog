@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('blog-assets/css/main.css')}}">
 </head>
 <body>
-
+<div class="wrap_above_footer">
 
 
 <header class="header clearfix">
@@ -33,8 +33,8 @@
     @yield('content')
 </div>
 
-
-<header class="footer">
+</div>
+<footer class="footer">
 
 
      <ul class="footer__lists-page">
@@ -46,7 +46,7 @@
     <div class="footer__disclaimer">
         Company - Address - Number
     </div>
-</header>
+</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{{asset('blog-assets/js/all.js')}}"></script>

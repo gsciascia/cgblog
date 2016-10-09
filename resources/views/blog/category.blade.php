@@ -13,6 +13,11 @@
     <div class="row"> <!-- Start central container  -->
         <div class="col-xs-12 col-md-8">
 
+            <div class="title_page">
+                <h2>View post in <i>{{ $category->name }}</i></h2>
+            </div>
+
+
             @forelse ($posts as $post)
                 <section class="row-post col-xs-12">
                     <div class="row-post__image col-xs-12 col-md-6">

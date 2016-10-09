@@ -36,6 +36,20 @@
             </li>
 
 
+                @can('create', \App\User::Class)
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-users"></i> <span>Users</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i> </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('users.create')}}"><i class="fa fa-circle-o"></i> New users</a>
+                            </li>
+                            <li><a href="{{route('users.index')}}"><i class="fa fa-circle-o"></i> View all</a></li>
+                        </ul>
+                    </li>
+                @endcan
+
 
         </ul>
     </section>

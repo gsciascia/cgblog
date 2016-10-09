@@ -136,11 +136,13 @@ class BlogRepository
             $post = $this->post->whereSlug($slug)->first();
 
             if (!empty($post)) {
-                $post['seo'] = $post->seo->first();
+               // $post['seo'] = $post->seo->first();
             }
 
             if ($post) {
                 return $post;
+            }else{
+                abort(404);
             }
 
         } catch (\Exception $e) {

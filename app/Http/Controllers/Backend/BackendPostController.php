@@ -46,15 +46,6 @@ class BackendPostController extends Controller
     public function index()
     {
         // Check the role of the user
-        /*
-        if(Auth::user()->hasRole('admin')){
-            $posts =Post::with('user')->paginate(10);
-        }else{
-            $user = User::find(Auth::user()->id);
-            $posts = $user->posts()->get();
-
-        }
-*/
 
         $posts = $this->postRepository->listPosts();
 

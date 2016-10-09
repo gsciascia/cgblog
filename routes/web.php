@@ -28,6 +28,7 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
        Route::get('categories/{parent_id?}', 'Backend\BackendCategoryController@index')->name('categories.index');
        Route::get('categories/delete/{category_id}', 'Backend\BackendCategoryController@delete')->name('categories.delete');
 
+       Route::resource('users','Backend\BackendUserController');
     });
 
     // Posts Route
@@ -37,6 +38,9 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
     Route::get('posts/restore/{post}', 'Backend\BackendPostController@restore')->name('posts.restore');
 
 
+
+    // Edit Profile User : Accessible for Admin And User
+    Route::get('profile/', 'Backend\BackendUserController@profile')->name('user.profile');
 
 
 
