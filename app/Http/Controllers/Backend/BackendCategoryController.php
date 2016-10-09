@@ -21,8 +21,7 @@ class BackendCategoryController extends Controller
     /**
      * Assign Category Model in Controller
      *
-     * @param  Category  $categories
-     * @return void
+     * @param  Category $categories
      */
     public function __construct(Category $categories)
     {
@@ -92,11 +91,23 @@ class BackendCategoryController extends Controller
         //Recovery input data
         $input_data = $request->all();
 
-        if (Category::create($input_data)) {
+        // Create new category
+        $new_category = $this->categories->create($input_data);
+
+        if ($new_category) {
+                //  Create new insert in pivot table
+                $seo_data = $new_category->seo()->create($input_data);
+                $new_category->seo()->save($seo_data);
+
             \Session::flash('flash_message_success', 'Success! Entry saved.');
         }else{
             \Session::flash('flash_message_error', 'Error! Entry Not saved.');
         }
+
+
+
+
+
 
         // Return to list Category page
         return redirect()->route('categories.index');
@@ -112,12 +123,17 @@ class BackendCategoryController extends Controller
      */
     public function edit($id)
     {
-        $category=Category::findOrFail($id);
+        $category = $this->categories->findOrFail($id);
 
-        $categories_tree = $this->categories->listTreeCategories();
-        $categories = $this->categories->linearizeCategoryArray($categories_tree);
+        $categories_tree = $category->listTreeCategories();
+        $categories = $category->linearizeCategoryArray($categories_tree);
 
-        return view('backend.categories.edit', compact('category','categories'));
+        // retrieve seo data
+        $seo = $category->seo->first();
+
+
+
+        return view('backend.categories.edit', compact('category','categories','seo'));
     }
 
     /**
@@ -139,7 +155,13 @@ class BackendCategoryController extends Controller
         //Recovery input data
         $input_data = $request->all();
 
-        if (Category::findOrFail($id)->update($input_data)) {
+        $category = $this->categories->find($id);
+
+
+        if ($category->update($input_data)) {
+
+            $category->seo()->update(['title_tag'=>$input_data['title_tag'], 'description_tag'=>$input_data['description_tag']]);
+
             \Session::flash('flash_message_success', 'Success! Entry updated.');
         }else{
             \Session::flash('flash_message_error', 'Error! Entry Not updated.');
@@ -151,6 +173,7 @@ class BackendCategoryController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * We retrieve the user choose about how manage sub folder and posts
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -161,21 +184,19 @@ class BackendCategoryController extends Controller
         //Recovery input data
         $input_data = $request->all();
 
-
         if(intval($input_data['delete_option'])>0){
 
             switch ($input_data['delete_option']){
 
-                case 1 : $result = $this->categories->deleteCategoryAndSubcategory($id); break;
+                case 1 : $result = $this->categories->deleteCategoryAndSubcategory($id);
+                         break;
 
                 case 2 : $result = $this->categories->moveSubcategory($id,$input_data['move_in_id_category']);
-
-                break;
+                          break;
 
                 case 3 :  $result = $this->categories->movePostsToCategory($id, $input_data['new_id_category']);
 
-
-                break;
+                         break;
             }
 
         }

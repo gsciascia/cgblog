@@ -165,11 +165,6 @@ class Category extends Model
                 // Delete entry in pivot
                 $sub_category->posts()->detach();
 
-//               echo'<pre>';
-//                $havi_post;
-//                 echo'</pre>';
-//
-//                 dd($havi_post);
 
                 if (!$this->whereId($sub_category['id'])->delete()) {
                     return false;
@@ -217,12 +212,8 @@ class Category extends Model
      */
     public function moveSubcategory($category_id, $new_parent_category_id)
     {
-        $v = $this->where('parent_id',$category_id)->update(['parent_id' => $new_parent_category_id]);
-        echo'<pre>';
-       print_r( $v);
-        echo'</pre>';
+        return $this->where('parent_id',$category_id)->update(['parent_id' => $new_parent_category_id]);
 
-        dd($v);
     }
 
 }

@@ -32,7 +32,7 @@
                     <div class="col-md-8">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Edit a new post</h3>
+                                <h3 class="box-title">Edit post</h3>
                             </div>
 
 
