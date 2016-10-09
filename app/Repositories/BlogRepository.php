@@ -51,6 +51,21 @@ class BlogRepository
 
 
 
+    /**
+     * Retrieve all the categories.
+     *
+     * @param bool $category [ default = true ]  Use for switch list from active and trashed
+     * @return Array
+     */
+    public function listCategoriesHierarchy()
+    {
+        $list = $this->category->listTreeCategories();
+
+        return   $list;
+    }
+
+
+
 
     /**
      * Retrieve all the posts in the selected category .

@@ -17,7 +17,7 @@ class SidebarCategoryComposer
      */
     public function __construct(BlogRepository $blog)
     {
-        $this->categoryList = $blog->listCategories();
+        $this->categoryList = $blog->listCategoriesHierarchy();
 
     }
 
