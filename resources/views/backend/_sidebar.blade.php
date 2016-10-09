@@ -50,6 +50,24 @@
                     </li>
                 @endcan
 
+                <li class="treeview">
+                    <a href="{{ route('user.profile') }}" >
+                        <i class="fa fa-key"></i> <span>Your profile</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+                </li>
+
+
+                <li class="treeview">
+                    <a href="{{ url('/logout') }}" onclick="event.preventDefault();  document.getElementById('logout-form-sidebar').submit();" >
+                        <i class="fa fa-sign-out"></i> <span>Logout</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+
+                    <form id="logout-form-sidebar" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </li>
 
         </ul>
     </section>
