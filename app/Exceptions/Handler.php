@@ -45,18 +45,38 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
-        //check if exception is an instance of ModelNotFoundException.
-        if ($exception instanceof ModelNotFoundException) {
-            // ajax 404 json feedback
-            if ($request->ajax()) {
-                return response()->json(['error' => 'Not Found'], 404);
-            }
 
-            // normal 404 view page feedback
-            return response()->view('errors.missing', [], 404);
-        }
+//echo $exception->getStatusCode();
 
-        return parent::render($request, $exception);
+
+        switch($exception){
+
+            case ($exception instanceof ModelNotFoundException):
+                  // ajax 404 json feedback
+                  if ($request->ajax()) {
+                     return response()->json(['error' => 'Not Found'], 404);
+                  }
+                  // normal 404 view page
+                   return response()->view('errors', [], 404);
+                    break;
+
+
+
+            case ($exception instanceof ErrorException):
+                // normal 404 view page
+                return response()->view('errors', [], 404);
+                break;
+
+           default:
+
+               return parent::render($request, $exception);
+
+       }
+
+
+
+
+
     }
 
     /**

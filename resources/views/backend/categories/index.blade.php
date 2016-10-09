@@ -49,11 +49,13 @@
                                 <td>
                                     @if($category->children()->count()>0)
                                         <a href="{{ route('categories.index',$category->id) }}">
+                                            Manage
                                     @endif
 
-                                            {{ $category->children()->count() }}
+                                          ( {{ $category->children()->count() }} )
 
                                     @if($category->children()->count()>0)
+
                                     </a>
                                     @endif
                                 </td>

@@ -161,12 +161,21 @@ class BackendCategoryController extends Controller
         //Recovery input data
         $input_data = $request->all();
 
+
         if(intval($input_data['delete_option'])>0){
 
             switch ($input_data['delete_option']){
 
-                case 1 : $result = $this->categories->deleteCategoryAndSubcategory($id);
-                         break;
+                case 1 : $result = $this->categories->deleteCategoryAndSubcategory($id); break;
+
+                case 2 : $result = $this->categories->moveSubcategory($id,$input_data['move_in_id_category']);
+
+                break;
+
+                case 3 :  $result = $this->categories->movePostsToCategory($id, $input_data['new_id_category']);
+
+
+                break;
             }
 
         }
@@ -198,11 +207,11 @@ class BackendCategoryController extends Controller
         //Check some point
         // 1) Did The Category selected has sub-categories?
         // If it has, so I need to ask to user what they want to do with subfolder (delete, Move)
-        $has_sub_category = $category->children()->count();
+            $has_sub_category = $category->children()->count();
 
-
-
-
+         //2) Did the category selected has post?
+        //If it has,  so I need to ask to user what they want to do with Posts (delete, Move)
+            $has_posts = $category->posts()->count();
 
         // Get all Category tree except the category branch and its related sub category
         $categories_tree = $this->categories->listTreeCategories(0,$id);
@@ -210,7 +219,7 @@ class BackendCategoryController extends Controller
         // Linearize in array
         $categories_available = $this->categories->linearizeCategoryArray($categories_tree);
 
-        return view( 'backend.categories.delete', compact('category','has_sub_category','categories_available') );
+        return view( 'backend.categories.delete', compact('category', 'has_sub_category', 'has_posts', 'categories_available') );
     }
 
 

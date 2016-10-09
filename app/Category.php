@@ -143,15 +143,38 @@ class Category extends Model
     }
 
 
+    /**
+     * Delete the give category id  and all his sub-category and relative posts
+     *
+     * @param $id - The category id to delete
+     * @return bool
+     */
     public function deleteCategoryAndSubcategory($id)
     {
         $sub_categories = $this->linearizeCategoryArray($this->listTreeCategories($id));
 
         if(count($sub_categories)>0) {
             foreach ($sub_categories as $sub_category) {
+
+                // Search if this sub-categories as post and
+
+               $sub_category = $this->find($sub_category['id']);
+                // Delete All posts in this category
+                $sub_category->posts()->delete();
+
+                // Delete entry in pivot
+                $sub_category->posts()->detach();
+
+//               echo'<pre>';
+//                $havi_post;
+//                 echo'</pre>';
+//
+//                 dd($havi_post);
+
                 if (!$this->whereId($sub_category['id'])->delete()) {
                     return false;
                 }
+
             }
         }
 
@@ -159,9 +182,47 @@ class Category extends Model
 
             return true;
         }
+
         return false;
 
     }
 
+
+
+
+    /**
+     * Delete the selected category, passed from id, and his sub-categories
+     *
+     * @param $id - The Category to delete
+     * @return bool
+     */
+    public function movePostsToCategory($category_id, $new_category_id)
+    {
+
+       if( \DB::table('category_post')->where('category_id', '=', $category_id)->update(array('category_id' => $new_category_id)) ){
+           return true;
+       }
+        return false;
+    }
+
+
+
+
+
+    /**
+     * Delete the selected category, passed from id, and his sub-categories
+     *
+     * @param $id - The Category to delete
+     * @return bool
+     */
+    public function moveSubcategory($category_id, $new_parent_category_id)
+    {
+        $v = $this->where('parent_id',$category_id)->update(['parent_id' => $new_parent_category_id]);
+        echo'<pre>';
+       print_r( $v);
+        echo'</pre>';
+
+        dd($v);
+    }
 
 }

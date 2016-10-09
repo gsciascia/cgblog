@@ -75,8 +75,14 @@ class BlogRepository
      */
     public function listPostsInCategory($id)
     {
+        try {
 
         $post = $this->category->find($id)->posts->where('status','publish')->all();
+
+        } catch (\Exception $e) {
+
+           abort(404);
+        }
 
 
         return $post;
