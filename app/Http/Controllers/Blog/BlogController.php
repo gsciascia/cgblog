@@ -56,8 +56,9 @@ class BlogController extends Controller
      */
     public function showPostsInCategory($id)
     {
+        $category = $this->blogRepository->getCategory($id);
         $posts = $this->blogRepository->listPostsInCategory($id);
-        return view('blog.category', compact('posts'));
+        return view('blog.category', compact('posts','category'));
     }
 
 

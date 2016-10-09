@@ -1,5 +1,10 @@
 @extends('layouts/blog')
 
+@section('meta_content')
+<title>{{ $post->seo->title_tag }}</title>
+<meta name="description" content="{{ $post->seo->description_tag }}">
+<meta name="author" content="">
+@endsection
 
 
 @section('content')

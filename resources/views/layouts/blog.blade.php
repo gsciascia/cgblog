@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    @yield('meta_content')
     <meta name="_token" content="{{ csrf_token() }}"/>
-    <title>Admin</title>
     <link rel="stylesheet" href="{{asset('blog-assets/css/main.css')}}">
 </head>
 <body>

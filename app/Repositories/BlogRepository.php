@@ -89,6 +89,39 @@ class BlogRepository
     }
 
 
+    /**
+     * Retrieve info about the category passed by $id
+     *
+     * @param int $id -  category Id
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function getCategory($id)
+    {
+        try {
+
+            $category = $this->category->find($id);
+
+            if (!empty($category)) {
+                $category['seo'] = $category->seo()->first();
+            }
+
+
+
+            return $category;
+
+
+
+        } catch (\Exception $e) {
+
+            abort(404);
+        }
+
+
+
+    }
+
+
+
 
     /**
      * Get Post Data .
@@ -98,14 +131,22 @@ class BlogRepository
      */
     public function getPostData($slug)
     {
-        $post = $this->post->whereSlug($slug)->first();
+        try {
 
+            $post = $this->post->whereSlug($slug)->first();
 
-        if($post){
-            return $post;
+            if (!empty($post)) {
+                $post['seo'] = $post->seo->first();
+            }
+
+            if ($post) {
+                return $post;
+            }
+
+        } catch (\Exception $e) {
+
+            abort(404);
         }
-
-       return abort(404);
 
     }
 
