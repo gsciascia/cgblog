@@ -40,7 +40,8 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
 
 
     // Edit Profile User : Accessible for Admin And User
-    Route::get('profile/', 'Backend\BackendUserController@profile')->name('user.profile');
+    Route::get('profile', 'Backend\BackendUserController@editProfile')->name('user.profile');
+    Route::post('profile/{profile}', 'Backend\BackendUserController@updateProfile');
 
 
 

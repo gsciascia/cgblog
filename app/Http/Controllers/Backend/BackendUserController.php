@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserProfileUpdateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Role;
 use App\User;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BackendUserController extends Controller
 {
@@ -93,7 +95,6 @@ class BackendUserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
 
-   //     if (Auth::user()->can('update', $post_obj)) {
 
         $user=User::findOrFail($id);
 
@@ -119,14 +120,11 @@ class BackendUserController extends Controller
 
             return redirect()->route('users.edit', $id);
 
-/*        }else{
-            abort(503);
-        }*/
     }
 
     /**
      * Remove the specified resource from storage.
-     * We retrieve the user choose about how manage sub folder and posts
+     * We retrieve the admin choose about how manage posts of deleted user
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -147,6 +145,60 @@ class BackendUserController extends Controller
 
 
 
+
+    /**
+     * Show the form for editing the user's profile.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editProfile()
+    {
+        $user=Auth::user();
+        return view('backend.users.edit_profile', compact('user'));
+    }
+
+
+
+
+
+    /**
+     * Update personal user profile
+     *
+     * @param UserUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateProfile(UserProfileUpdateRequest $request, $id)
+    {
+
+        $user=User::findOrFail($id);
+
+        //Remove these fields for security
+        $input=$request->except('role_id','status');
+
+        //If password is empty, remove it from request
+        if(trim($request->password=='')){
+            $input=$request->except('password');
+        }else{
+            // If password is not empty , crypt it
+            $input=$request->all();
+            $input['password']=bcrypt($request->password);
+        }
+
+
+
+        if ($user->update($input)) {
+
+            \Session::flash('flash_message_success', 'Success! Entry updated.');
+        } else {
+            \Session::flash('flash_message_error', 'Error! Entry Not updated.');
+        }
+
+
+        return redirect()->route('user.profile');
+
+    }
 
 
 }
