@@ -30,7 +30,7 @@ class SidebarCategoryComposer
     public function compose(View $view)
     {
 
-        $view->with('categories', $this->categoryList);
+        $view->with('categories_hierarchical', $this->categoryList);
     }
 }
 
