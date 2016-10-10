@@ -142,12 +142,12 @@ class Category extends Model
 
         }
 
-        if(count($linearizeArray)>0){
+
+        if (count($linearizeArray) > 0) {
             return $linearizeArray;
-        } else{
+        } else {
             return array();
         }
-
 
 
     }

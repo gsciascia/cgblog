@@ -45,7 +45,8 @@ class BlogController extends Controller
         // Check the role of the user
 
         $posts = $this->blogRepository->listPosts(3);
-        return view('blog.index', compact('posts'));
+        $categories = $this->categories;
+        return view('blog.index', compact('posts','categories'));
     }
 
 
@@ -58,7 +59,8 @@ class BlogController extends Controller
     {
         $category = $this->blogRepository->getCategory($id);
         $posts = $this->blogRepository->listPostsInCategory($id,10);
-        return view('blog.category', compact('posts','category'));
+        $categories = $this->categories;
+        return view('blog.category', compact('posts','category','categories'));
     }
 
 
@@ -71,8 +73,8 @@ class BlogController extends Controller
     {
 
         $post = $this->blogRepository->getPostData($slug);
-
-        return view('blog.post', compact('post'));
+        $categories = $this->categories;
+        return view('blog.post', compact('post','categories'));
     }
 
 

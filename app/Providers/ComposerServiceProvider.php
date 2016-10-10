@@ -14,7 +14,10 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        view()->composer('*','App\Http\ViewComposers\SidebarCategoryComposer');
+        // Using Closure based composers...
+
+
+       // view()->composer('blog.sidebar-categories','App\Http\ViewComposers\SidebarCategoryComposer');
      }
 
     /**

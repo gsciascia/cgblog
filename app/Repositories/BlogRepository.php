@@ -89,6 +89,9 @@ class BlogRepository
                 $query->whereIN('category_id', $category_ids);
                 })->paginate($nr_elements);
 
+
+
+
         } catch (\Exception $e) {
 
            abort(404);
