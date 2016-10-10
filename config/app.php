@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-
+        Mews\Purifier\PurifierServiceProvider::class,
 
 
         /*
@@ -183,6 +183,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
 
     ],
 

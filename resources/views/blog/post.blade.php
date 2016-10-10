@@ -27,14 +27,14 @@
                 <span class="main-post__author">by {{ $post->user->name }}</span>
                 <span class="main-post__date"> Published at {{ $post->publish_date }}</span>
                 <div class="main-post__abstract">
-                    {{ $post->abstract }}
-                </div>
-            </section>
+                {!! Purifier::clean($post->content) !!}
+</div>
+</section>
 
-        </div>
+</div>
 
 
-        @include('blog.sidebar-categories')
+@include('blog.sidebar-categories')
 
-    </div> <!-- End central container  -->
+</div> <!-- End central container  -->
 @endsection

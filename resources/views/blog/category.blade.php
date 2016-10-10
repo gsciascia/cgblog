@@ -31,7 +31,7 @@
                         <span class="row-post__author">by {{ $post->user->name }}</span>
                         <span class="row-post__date">Published at {{ $post->publish_date }}</span>
                         <div class="row-post__abstract">
-                            {{ $post->abstract }}
+                            {{ str_limit($post->abstract,150) }}
                         </div>
                     </div>
                 </section>
