@@ -20,7 +20,7 @@
                 <h3 class="main-post__title">
 
                     <a href="{{ $post->slug}}">
-                        {{ $post->title }}
+                        {!! Purifier::clean($post->title) !!}
                     </a>
 
                 </h3>

@@ -22,16 +22,30 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
         return view('backend.index');
     })->name('dashboard');
 
-    // Categories Route
-    Route::group(['middleware'=>'role:admin' ], function(){
+    /*
+     * Backend Categories Route
+     *
+     */
+       Route::group(['middleware'=>'role:admin' ], function(){
        Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]);
        Route::get('categories/{parent_id?}', 'Backend\BackendCategoryController@index')->name('categories.index');
        Route::get('categories/delete/{category_id}', 'Backend\BackendCategoryController@delete')->name('categories.delete');
 
+       /*
+        * Backend User Route
+        *
+        */
+
        Route::resource('users','Backend\BackendUserController');
+       Route::get('users/delete/{user_id}', 'Backend\BackendUserController@delete')->name('users.delete');
+
     });
 
-    // Posts Route
+
+    /*
+     * Backend Post Route
+     *
+     */
     Route::delete('posts/destroyTrashed', 'Backend\BackendPostController@destroyTrashed')->name('posts.destroyTrashed');
     Route::resource('posts','Backend\BackendPostController',['except' => ['show']]);
     Route::get('posts/trash', 'Backend\BackendPostController@trash')->name('posts.trash');
@@ -39,7 +53,11 @@ Route::group(['prefix' => 'backend', 'middleware'=>'role:admin|author' ], functi
 
 
 
-    // Edit Profile User : Accessible for Admin And User
+    /*
+     * Edit Profile User : Accessible for Admin And Author
+     *
+     */
+
     Route::get('profile', 'Backend\BackendUserController@editProfile')->name('user.profile');
     Route::post('profile/{profile}', 'Backend\BackendUserController@updateProfile');
 
@@ -52,17 +70,19 @@ Auth::routes();
 
 
 
-// Post
+/*
+ * Public Post
+ *
+ */
 
 Route::get('/', ['uses' => 'Blog\BlogController@index', 'as' => 'blog.index']);
 Route::get('/{slug}','Blog\BlogController@showPost')->name('blog.showPost');
 
 
-// Category
+/*
+ * Public Category
+ *
+ */
 Route::get('/category/{name}','Blog\BlogController@showPostsInCategory')->name('blog.showPostsInCategory');
 
 
-/*
-Route::get('/category', ['uses' => 'CategoryController@index', 'as' => 'category.index']);
-Route::resource('categories','Backend\BackendCategoryController',['except' => ['index','show']]);
-*/

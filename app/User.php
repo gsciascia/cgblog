@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Post;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -71,6 +72,63 @@ class User extends Authenticatable
         return false;
     }
 
+
+
+
+
+
+    /**
+     * Delete the give category id  and all his sub-category and relative posts
+     *
+     * @param $id - The category id to delete
+     * @return bool
+     */
+    public function deletePostAndUser($id)
+    {
+        $user_posts = $this->find($id)->posts()->get()->toArray();
+
+
+        if(count($user_posts)>0) {
+            foreach ($user_posts as $post) {
+
+
+                Post::find($post['id'])->delete();
+
+                // Delete entry in pivot
+                if( !\DB::table('category_post')->where('post_id', '=', $post['id'])->delete() ){
+                    return false;
+                }
+
+
+
+            }
+        }
+
+
+        if ($this->whereId($id)->delete()) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Move post to another user
+     *
+     * @param $user_id
+     * @param $new_user_id
+     * @return bool
+     *
+     */
+    public function movePostsToUser($user_id, $new_user_id)
+    {
+
+
+        if( \DB::table('posts')->where('user_id', '=', $user_id)->update(['user_id' => $new_user_id]) ){
+            return true;
+        }
+        return false;
+    }
 
 
 

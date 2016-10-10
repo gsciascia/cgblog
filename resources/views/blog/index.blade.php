@@ -38,7 +38,7 @@
                 <span class="main-post__author">by {{ $post->user->name }}</span>
                 <span class="main-post__date"> Published at {{ $post->publish_date }}</span>
                 <div class="main-post__abstract">
-                    {{ $post->abstract }}
+                    {{ str_limit($post->abstract,150) }}
                 </div>
             </section>
             @else
@@ -50,12 +50,12 @@
 
                 <div class="row-post__content col-xs-12 col-md-6">
                     <h3 class="row-post__title">
-                        <a href="{{ $post->slug }}">{{ $post->title }}</a>
+                        <a href="{{ $post->slug }}">  {!! Purifier::clean($post->title) !!}</a>
                     </h3>
                     <span class="row-post__author">by {{ $post->user->name }}</span>
                     <span class="row-post__date">Published at {{ $post->publish_date }}</span>
                     <div class="row-post__abstract">
-                        {{ $post->abstract }}
+                        {!! Purifier::clean( str_limit($post->abstract,150) ) !!}
                     </div>
                 </div>
             </section>

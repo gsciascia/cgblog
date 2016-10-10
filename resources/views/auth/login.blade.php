@@ -1,4 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.blog')
+
+
+@section('meta_content')
+<link rel="stylesheet" href="{{asset('backend-assets/css/all.css')}}">
+@endsection
 
 @section('content')
 <div class="container">
@@ -65,4 +70,7 @@
         </div>
     </div>
 </div>
+
+
+
 @endsection

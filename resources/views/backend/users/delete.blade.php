@@ -3,12 +3,12 @@
 @section('content')
 
     <section class="content-header" xmlns="http://www.w3.org/1999/html">
-        <h1>Category</h1>
+        <h1>User</h1>
     </section>
 
     <section class="content-header">
         <div class="row-fluid">
-            <a href="{{ route('categories.index') }}" class="btn btn-info"><i class="fa  fa-angle-double-left"></i> Back </a>
+            <a href="{{ route('users.index') }}" class="btn btn-info"><i class="fa  fa-angle-double-left"></i> Back </a>
         </div>
     </section>
 
@@ -26,10 +26,10 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Delete category <strong class="text-red">{{ $category->name }}</strong></h3>
+                        <h3 class="box-title">Delete User <strong class="text-red">{{ $user->name }}</strong></h3>
                     </div>
 
-                    {!! Form::open(['method'=>'DELETE', 'action' => ['Backend\BackendCategoryController@destroy', $category->id], 'files'=>false]) !!}
+                    {!! Form::open(['method'=>'DELETE', 'action' => ['Backend\BackendUserController@destroy', $user->id], 'files'=>false]) !!}
                         <div class="box-body">
 
 
@@ -40,51 +40,24 @@
                                     <div class="radio">
                                         <label for="delete_option_1">
                                             <input type="radio" name="delete_option" id="delete_option_1" value="1" checked>
-                                             Delete this category <strong class="text-red">{{ $category->name }}</strong>  @if($has_sub_category>0) and all sub categories @endif even include posts
+                                             Delete  <strong class="text-red">{{ $user->name }}</strong>  @if($has_posts>0) include his posts @endif
                                         </label>
                                     </div>
-
-
-                                    @if($has_sub_category>0)
-
-                                        <div class="radio">
-                                            <label for="delete_option_2">
-                                                <input type="radio" name="delete_option" id="delete_option_2" value="2">
-
-                                                Move Sub category to :
-                                                <select class="form-control" name="move_in_id_category">
-                                                    <option value="0">Root</option>
-                                                    @foreach ($categories_available as $category_item)
-                                                        <option value="{{ $category_item['id'] }}"
-                                                                @if( $category_item['id']==$category->parent_id) selected="selected" @endif >
-                                                            |
-                                                            @for ($i = 0; $i < $category_item['depth']; $i++) - @endfor
-                                                            {{ $category_item['name'] }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </label>
-                                        </div>
-                                </div>
-                            @endif
 
 
 
                             @if($has_posts>0)
 
                                 <div class="radio">
-                                    <label for="delete_option_3">
-                                        <input type="radio" name="delete_option" id="delete_option_3" value="3">
+                                    <label for="delete_option_2">
+                                        <input type="radio" name="delete_option" id="delete_option_2" value="2">
 
                                         Move Posts to  :
-                                        <select class="form-control" name="new_id_category">
+                                        <select class="form-control" name="new_id_user">
 
-                                            @foreach ($categories_available as $category_item)
-                                                <option value="{{ $category_item['id'] }}"
-                                                        @if( $category_item['id']==$category->parent_id) selected="selected" @endif >
-                                                    |
-                                                    @for ($i = 0; $i < $category_item['depth']; $i++) - @endfor
-                                                    {{ $category_item['name'] }}
+                                            @foreach ($all_users as $user_item)
+                                                <option value="{{ $user_item['id'] }}">
+                                                    {{ $user_item['name'] }}   {{ $user_item['last_name'] }}
                                                 </option>
                                             @endforeach
                                         </select>

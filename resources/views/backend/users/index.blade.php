@@ -52,7 +52,7 @@
                                 <td>
                                     <a href="{{ route('users.edit',$user->id) }}" class="btn btn-primary" title="Edit category"><i class="fa fa-pencil"></i></a>
 
-                                    <a href="{{ route('users.destroy',$user->id) }}" class="btn btn-danger" title="Delete items" ><i class="fa fa-trash-o"></i></a>
+                                    <a href="{{ route('users.delete',$user->id) }}" class="btn btn-danger" title="Delete items" ><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                             @endforeach

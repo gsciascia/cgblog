@@ -18,6 +18,22 @@ class BackendUserController extends Controller
     //
 
     /**
+     * The User Model instance.
+     */
+    protected $user;
+
+    /**
+     * Assign Category Model in Controller
+     *
+     * @param  Category $categories
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+
+    /**
      * Display List of users
      *
      * @return \Illuminate\Http\Response
@@ -122,27 +138,6 @@ class BackendUserController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * We retrieve the admin choose about how manage posts of deleted user
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, $id)
-    {
-
-
-        if($result){
-            \Session::flash('flash_message_success', 'Success! Category deleted.');
-        }else{
-            \Session::flash('flash_message_error', 'Error! Category Not deleted.');
-        }
-
-        return redirect()->route('categories.index');
-    }
-
-
 
 
 
@@ -199,6 +194,77 @@ class BackendUserController extends Controller
         return redirect()->route('user.profile');
 
     }
+
+
+
+
+
+
+
+    /**
+     * Show the form with options for delete Users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+
+        //Check some point
+
+        //1) Did the user selected has post?
+        //If it has,  so I need to ask to user what they want to do with Posts (delete, Move)
+        $has_posts = $user->posts()->count();
+
+        // Get all Category tree except the category branch and its related sub category
+        $all_users = User::where('id','<>',$id)->get();
+
+
+        return view( 'backend.users.delete', compact('user','has_posts', 'all_users') );
+    }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     * We retrieve the Admin choose about how manage user and posts
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+
+        //Recovery input data
+        $input_data = $request->all();
+
+        if(intval($input_data['delete_option'])>0){
+
+            switch ($input_data['delete_option']){
+
+                case 1 : $result = $this->user->deletePostAndUser($id);
+                    break;
+
+                case 2 :  $result = $this->user->movePostsToUser($id, $input_data['new_id_user']);
+
+                    break;
+            }
+
+        }
+
+        if($result){
+            \Session::flash('flash_message_success', 'Success! User deleted.');
+        }else{
+            \Session::flash('flash_message_error', 'Error! User Not deleted.');
+        }
+
+        return redirect()->route('users.index');
+    }
+
+
+
 
 
 }
