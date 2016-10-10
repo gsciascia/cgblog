@@ -35,7 +35,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                   CGBlog
                 </a>
             </div>
 
@@ -46,6 +46,7 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
+                {{--
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
@@ -73,6 +74,7 @@
                         </li>
                     @endif
                 </ul>
+                --}}
             </div>
         </div>
     </nav>
