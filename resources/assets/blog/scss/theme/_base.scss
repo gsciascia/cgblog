@@ -135,6 +135,11 @@ img{
       display: block;
 
     }
+
+    &__select{
+    text-align: center;
+
+    }
   }
 
   &__menu__item a{
@@ -170,6 +175,32 @@ img{
 
   }
 
+
+}
+
+
+
+
+
+.menu_select {
+
+    display: none;
+    width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+
+  @include phablet {
+    display: block;
+  }
 
 }
 
@@ -392,4 +423,6 @@ Main Post
     color: $color__primary--white;
   }
 }
+
+
 

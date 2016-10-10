@@ -24,9 +24,9 @@ class BlogRepository
      *
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
-    public function listPosts()
+    public function listPosts($limit = null)
     {
-        $posts = $this->post->published()->get();
+        $posts = $this->post->published()->take(intval($limit))->get();
         return $posts;
     }
 
@@ -73,11 +73,21 @@ class BlogRepository
      * @param int $id -  category Id
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
-    public function listPostsInCategory($id)
+    public function listPostsInCategory($id,$nr_elements = null)
     {
         try {
+            //Get all childrens Category for the Currenty category
+            $children_category = $this->category->listTreeCategories($id);
 
-        $post = $this->category->find($id)->posts->where('status','publish')->all();
+            // Extract the id Value
+            $category_ids = array_column($children_category, 'id');
+
+            // Add the current category to Array
+            array_push($category_ids,$id);
+
+            $posts = $this->post->whereHas('categories',  function($query) use  ($category_ids) {
+                $query->whereIN('category_id', $category_ids);
+                })->paginate($nr_elements);
 
         } catch (\Exception $e) {
 
@@ -85,7 +95,7 @@ class BlogRepository
         }
 
 
-        return $post;
+        return $posts;
     }
 
 
@@ -136,7 +146,7 @@ class BlogRepository
             $post = $this->post->whereSlug($slug)->first();
 
             if (!empty($post)) {
-               // $post['seo'] = $post->seo->first();
+                $post['seo'] = $post->seo->first();
             }
 
             if ($post) {

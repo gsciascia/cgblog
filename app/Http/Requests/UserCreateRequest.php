@@ -29,7 +29,7 @@ class UserCreateRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'role_id'=>'required',
             'is_active'=>'required',
-            'password'=>'required|digits_between:5,10',
+            'password'=>'required|AlphaNum|Between:5,10',
             //
         ];
     }

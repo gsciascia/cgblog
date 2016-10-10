@@ -14,8 +14,8 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        view()->composer('blog.sidebar-categories','App\Http\ViewComposers\SidebarCategoryComposer');
-    }
+        view()->composer('*','App\Http\ViewComposers\SidebarCategoryComposer');
+     }
 
     /**
      * Register the application services.

@@ -42,6 +42,11 @@
             @endforelse
 
 
+            <div class="row"> <!-- Start central container  -->
+                <div class="col-xs-12 col-md-8">
+                      {{ $posts->links() }}
+                </div>
+            </div>
         </div>
 
 

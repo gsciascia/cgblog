@@ -1,5 +1,7 @@
 @extends('layouts/blog')
 
+
+
 @section('before_content')
 <section class="slide">
     <div class="slide__filter"></div>

@@ -13,14 +13,20 @@
 
 
 <header class="header clearfix">
-    <a href="" class="header__logo">
+    <a href="/" class="header__logo">
         <img src="{{asset('blog-assets/img/logo3.png')}}" class="img-responsive">
     </a>
     <a href="" class="header__icon-hamburger"><span></span><span></span><span></span></a>
     <ul class="header__menu animate">
-     <li class="header__menu__item"><a href=""> cixxao</a></li>
-     <li class="header__menu__item"><a href=""> cixxao</a></li>
-     <li class="header__menu__item"><a href=""> cixxao</a></li>
+     <li class="header__menu__item"><a href="/"> About us</a></li>
+     <li class="header__menu__item"><a href="/"> Our Mission</a></li>
+     <li class="header__menu__item"><a href="/"> Our Friends</a></li>
+     <li class="header__menu__item">
+         <select class="menu_select" onchange="if (this.value) window.location.href=this.value">
+             <option>Choose a category</option>
+             @each('blog.partial._itemsMenuSelect', $categories, 'category')
+         </select>
+     </li>
     </ul>
 </header>
 

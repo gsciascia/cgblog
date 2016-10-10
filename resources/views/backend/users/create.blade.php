@@ -65,8 +65,8 @@
                                 <div class="form-group  @if ($errors->has('password')) has-error @endif">
                                     {!! Form::label('password','Password') !!}
                                     {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Leave empty for not change']) !!}
-                                    <small class="text-read"> </small>
-                                    <small class="text-red"> The password must be between 5 and 10 digits.</small>
+
+                                    <small class="text-red"> The password must be lenght between 5 and 10 characters.</small>
 
                                 </div>
 

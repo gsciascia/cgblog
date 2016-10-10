@@ -68,7 +68,9 @@ class BackendCategoryController extends Controller
     public function create()
     {
         $categories_tree = $this->categories->listTreeCategories();
-        $categories = $this->categories->linearizeCategoryArray($categories_tree);
+        if($categories_tree>0) {
+            $categories = $this->categories->linearizeCategoryArray($categories_tree);
+        }
 
         return view('backend.categories.create',compact('categories'));
     }

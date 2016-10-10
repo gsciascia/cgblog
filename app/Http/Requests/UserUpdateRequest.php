@@ -35,7 +35,7 @@ class UserUpdateRequest extends FormRequest
             'email' => 'required|email|unique:users,email,'.$user_id,
             'role_id'=>'required',
             'is_active'=>'required',
-            'password'=>'sometimes|digits_between:5,10',
+            'password'=>'sometimes|AlphaNum|Between:5,10',
             //
         ];
     }

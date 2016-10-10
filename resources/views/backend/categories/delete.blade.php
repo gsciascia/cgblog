@@ -40,7 +40,7 @@
                                     <div class="radio">
                                         <label for="delete_option_1">
                                             <input type="radio" name="delete_option" id="delete_option_1" value="1" checked>
-                                             Delete this category <strong class="text-red">{{ $category->name }}</strong>  @if($has_sub_category>0) and all sub categories @endif even include posts
+                                             Delete this category <strong class="text-red">{{ $category->name }}</strong>  @if($has_sub_category>0) and all sub categories @endif even included posts
                                         </label>
                                     </div>
 

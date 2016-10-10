@@ -38,7 +38,7 @@ class UserProfileUpdateRequest extends FormRequest
             'name'=>'required',
             'last_name'=>'required',
             'email' => 'required|email|unique:users,email,'.$user_id,
-            'password'=>'sometimes|digits_between:5,10',
+            'password'=>'sometimes|AlphaNum|Between:5,10',
         ];
     }
 }

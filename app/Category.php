@@ -77,6 +77,7 @@ class Category extends Model
 
 
 
+
     /**
      * Generate list representation of the hierarchical Database items.
      *
@@ -125,6 +126,9 @@ class Category extends Model
      */
     public function linearizeCategoryArray($categories, $depth=0, $linearizeArray = null) {
 
+
+
+
         foreach ($categories as $key=>$category) {
             $linearizeArray[]=[
                  'id' => $category['id'],
@@ -138,7 +142,13 @@ class Category extends Model
 
         }
 
-        return $linearizeArray;
+        if(count($linearizeArray)>0){
+            return $linearizeArray;
+        } else{
+            return array();
+        }
+
+
 
     }
 
