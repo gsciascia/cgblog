@@ -26,7 +26,7 @@ class BlogRepository
      */
     public function listPosts($limit = null)
     {
-        $posts = $this->post->published()->take(intval($limit))->get();
+        $posts = $this->post->published()->orderBy('publish_date', 'desc')->take(intval($limit))->get();
         return $posts;
     }
 
@@ -87,7 +87,7 @@ class BlogRepository
 
             $posts = $this->post->whereHas('categories',  function($query) use  ($category_ids) {
                 $query->whereIN('category_id', $category_ids);
-                })->paginate($nr_elements);
+                })->orderBy('publish_date', 'desc')->paginate($nr_elements);
 
 
 

@@ -276,7 +276,7 @@ class BackendPostRepository
             $posts = $posts->active();
         }
 
-        $posts = $posts->paginate(10);
+        $posts = $posts->orderBy('publish_date', 'desc')->get();
 
         return $posts;
     }

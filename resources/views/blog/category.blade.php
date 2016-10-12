@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-md-8">
 
             <div class="title_page">
-                <h2>View post in <i>{{ $category->name }}</i></h2>
+                <h2>View posts in <i>{{ $category->name }}</i></h2>
             </div>
 
 
@@ -29,7 +29,7 @@
                             <a href="/{{ $post->slug }}">  {!! Purifier::clean($post->title) !!}</a>
                         </h3>
                         <span class="row-post__author">by {{ $post->user->name }}</span>
-                        <span class="row-post__date">Published at {{ $post->publish_date }}</span>
+                        <span class="row-post__date">Published on {{ $post->publish_date }}</span>
                         <div class="row-post__abstract">
                             {{ str_limit($post->abstract,150) }}
                         </div>
@@ -37,7 +37,7 @@
                 </section>
             @empty
                 <section class="row-post col-xs-12">
-                    <p>Sorry, no post founds</p>
+                    <p>Sorry, no post found</p>
                 </section>
             @endforelse
 

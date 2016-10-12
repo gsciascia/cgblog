@@ -21,7 +21,7 @@
 
                 </h3>
                 <span class="main-post__author">by {{ $post->user->name }}</span>
-                <span class="main-post__date"> Published at {{ $post->publish_date }}</span>
+                <span class="main-post__date"> Published on {{ $post->publish_date }}</span>
                 <div class="main-post__abstract">
                 {!! Purifier::clean($post->content) !!}
 </div>

@@ -36,7 +36,7 @@
 
                 </h3>
                 <span class="main-post__author">by {{ $post->user->name }}</span>
-                <span class="main-post__date"> Published at {{ $post->publish_date }}</span>
+                <span class="main-post__date"> Published on {{ $post->publish_date }}</span>
                 <div class="main-post__abstract">
                     {{ str_limit($post->abstract,150) }}
                 </div>
@@ -53,7 +53,7 @@
                         <a href="{{ $post->slug }}">  {!! Purifier::clean($post->title) !!}</a>
                     </h3>
                     <span class="row-post__author">by {{ $post->user->name }}</span>
-                    <span class="row-post__date">Published at {{ $post->publish_date }}</span>
+                    <span class="row-post__date">Published on {{ $post->publish_date }}</span>
                     <div class="row-post__abstract">
                         {!! Purifier::clean( str_limit($post->abstract,150) ) !!}
                     </div>
@@ -63,7 +63,7 @@
             @endif
             @empty
                 <section class="row-post col-xs-12">
-                <p>Sorry, no post founds</p>
+                <p>Sorry, no post found</p>
                 </section>
             @endforelse
 
